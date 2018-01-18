@@ -8,13 +8,21 @@ class HardCodedPlayer():
 	def __init__(self, actions):
 		self.actions = actions
 		print(actions)
+		print(game.getGameState())
+			#'snake_head_x','snake_head_y','food_x','food_y','snake_body','snake_body_pos'
 
 	def pickAction(self, reward, obs):
-		print("\n\n\n\n\n\n\n\n\n")
-		print(obs)
-		return self.actions[np.random.randint(0, len(self.actions))]
+		if(game.getGameState()["snake_head_x"] > game.getGameState()["food_x"]): #move left
+			return 97   
+		elif(game.getGameState()["snake_head_x"] < game.getGameState()["food_x"]): #move right
+			return 100  
+		elif(game.getGameState()["snake_head_y"] < game.getGameState()["food_y"]): #move down
+			return 115  
+		elif(game.getGameState()["snake_head_y"] > game.getGameState()["food_y"]): #move up
+			return 119  
+		return "none"
 		#119 up
-		#97  right
+		#97  left
 		#100 right
 		#115 down
 
@@ -28,14 +36,15 @@ class RandomPlayer():
         return self.actions[np.random.randint(0, len(self.actions))]
 
 game = Snake(
-	width = 500,
-	height = 500
+	width = 750,
+	height = 750,
+	init_length = 5
 )
 
 fps = 30  # fps we want to run at
 frame_skip = 2
 num_steps = 1
-force_fps = False  # slower speed
+force_fps = False  # True == MegaSpeed
 display_screen = True
 
 reward = 0.0
@@ -47,7 +56,7 @@ p = PLE(game, fps=fps, frame_skip=frame_skip, num_steps=num_steps,
         force_fps=force_fps, display_screen=display_screen)
 
 ### SET PLAYER ###
-agent = HardCodedPlayer(p.getActionSet()) #RandomPlayer, HardCodedPlayer SnakePlayer
+agent = HardCodedPlayer(p.getActionSet()) #RandomPlayer, HardCodedPlayer, SnakePlayer
 
 p.init()
 
