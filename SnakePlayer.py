@@ -4,6 +4,7 @@ import gym
 import numpy as np
 
 act_values = {}
+size = 20
 
 class RandomPlayer():
 
@@ -60,10 +61,10 @@ class LearningPlayer():
 		self.runscore = 0
 		self.Q={}
 		self.actions = actions
-		for sx in range(20):
-			for sy in range(20):
-				for fx in range(20):
-					for fy in range(20):
+		for sx in range(size):
+			for sy in range(size):
+				for fx in range(size):
+					for fy in range(size):
 						self.Q[sx,sy,fx,fy] = {}
 						for act in actions:
 							self.Q[sx,sy,fx,fy][act] = 1.0
@@ -130,8 +131,8 @@ class LearningPlayer():
 		return self.act #highest value action		
 
 game = Snake(
-	width = 20,
-	height = 20,
+	width = size,
+	height = size,
 	init_length = 3
 )
 
