@@ -1,0 +1,13 @@
+# OpenAIExam2018
+
+The goal of this program was to design a reinforcement learning player for the game Snake from the Pygame Learning environment. Each frame, an action must be chosen, either up, down, left, right, or none. The game is over when the snake either runs into its own body or runs into a wall. 
+
+The program creates a dictionary of states that measures the benefit for each move at each combination of snake x and y position, and each x and y position of the food. At the beginning of this program, all values are equal and actions are randomly chosen. As the snake either has success or failure, it modifies the values in this dictionary. For now, it ignores the position of the tail.
+
+I hypothesised that an effective metric of success might be to instead count the steps before a reward or punishment was scored and amplify the rewards and punishments in accordance with that statistic. For example, a really fast death where the snake careened directly into the wall would get a harsher punishment, while an ideal path to the food would yield great reward. Conversely, a slow meandering wandering that eventually lead into a wall was less harshly penalized because the snake would stay alive longer, while taking longer to get to the food would yield lower rewards. In theory, this incentivizes the program to both stay alive for as long as possible while favorable options were not available to mitigate punishment and efficiently collect food for a higher score without leaving a dangerous meandering trail.
+
+In practice, the unfortunate consequence of this system is that the snake can get trapped going in a circle; if taking a while to die is less punishing, then the snake’s apparent logical solution would be to just stick around for a while before doing anything. To counter this, I decided to add a counter that increased the randomness of the choices as the number of steps the snake had taken increased.
+
+With this implemented, the snake showed some marginal success and scored about twice as high as a normal player on average after 100000 frames by the above mentioned metrics. The learner program consistently improved over the runs, if only gradually. While I did not have the time to test this for longer and optimize further, I think that tweaking some of the variables that impact the rewards and punishments could benefit this program.
+
+If  I were to do this project again, I would look to delve deeper into specific methods like Q-learning and R3C. I think that trying to dig deeper into one method as opposed to hopping around to various techniques. I would have liked to learn some tensorflow as well, and I think that in upcoming projects I will try and do more in depth research before trying different options.
